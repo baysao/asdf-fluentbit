@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+_install() {
+	local install_type=$1
+	local version=$2
+	local version1=$(echo $version | sed 's/^v//')
+	local install_path=$3
+	tmpd=$(mktemp -d)
+	cd $tmpd
+
+	if [ ! -f "${version}.tar.gz" ]; then
+		source_path="https://github.com/fluent/fluent-bit/archive/${version}.tar.gz"
+		curl -L $source_path -o ${version}.tar.gz
+	fi
+	if [ ! -d "fluent-bit-${version1}" ]; then
+		tar -xzf ${version}.tar.gz
+	fi
+	cd fluent-bit-${version1}/build
+
+	export CFLAGS="$CFLAGS -std=gnu99" &&
+		cmake -DCMAKE_INSTALL_PREFIX=$install_path -DCMAKE_INSTALL_SYSCONFDIR=/etc/ \
+			-DFLB_DEBUG=On -DFLB_TRACE=On -DFLB_TD=On \
+			-DFLB_SQLDB=On -DFLB_HTTP_SERVER=On \
+			-DFLB_OUT_KAFKA=On \
+			-DFLB_OUT_PGSQL=On ../
+	make install
+	rm -rf $tmpd
+}
+
+_install $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH
