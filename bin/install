@@ -8,6 +8,7 @@ _install() {
 	tmpd=$(mktemp -d)
 	cd $tmpd
 
+	
 	if [ ! -f "${version}.tar.gz" ]; then
 		source_path="https://github.com/fluent/fluent-bit/archive/${version}.tar.gz"
 		curl -L $source_path -o ${version}.tar.gz
