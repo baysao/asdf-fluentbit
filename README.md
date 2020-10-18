@@ -12,6 +12,6 @@ asdf plugin-add fluentbit https://github.com/baysao/asdf-fluentbit.git
 
 ## Use
 
-After install, binary is td-fluent-bit
+After install, binary is td-agent-bit
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for instructions on how to install & manage versions of Fluentbit.
