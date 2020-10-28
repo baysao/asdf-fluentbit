@@ -26,6 +26,8 @@ _install() {
 			-DFLB_OUT_KAFKA=On \
 			-DFLB_OUT_PGSQL=On ../
 	make install
+	cp -rf /etc/td-agent-bit $install_path/etc
+	cp /lib/systemd/system/td-agent-bit.service  $install_path/
 	rm -rf $tmpd
 }
 
