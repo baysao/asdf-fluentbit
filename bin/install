@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 _install() {
+	apt-get install -y flex bison cmake 
 	local install_type=$1
 	local version=$2
 	local version1=$(echo $version | sed 's/^v//')
